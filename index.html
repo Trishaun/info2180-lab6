@@ -5,20 +5,24 @@
     </head>
     <body>
         <div>
-            <form action="request.php" method="post">Word:<input type="text" word="word">
-                <button type="button" onclick="makeRequest('request.php?q=definition')">Search</button>
+            <form action="request.php" method="get" id = "formid">
+                Word:<input type="text" word="word" id = "info">
+                <button type="button" onclick="makeRequest('request.php?q=')">Search</button>
             </form>
+             <div id = "results"></div>
         </div>
         <script type="text/javascript">
             function makeRequest(url){
                      var httpRequest = new XMLHttpRequest();
+                     var results = document.getElementById("info").value;
                      httpRequest.onreadystatechange = function()
                      {
                          if (httpRequest.readyState == XMLHttpRequest.DONE) 
                          {
                              if(httpRequest.status == 200)
                              { 
-                                alert(httpRequest.responseText);
+                                document.getElementById("results").innerHTML= httpRequest.responseText;
+                                //alert(httpRequest.responseText);
                              }
                              else
                              {
@@ -26,7 +30,7 @@
                              }
                          }
                      };
-                    httpRequest.open('GET',url,true);
+                    httpRequest.open('GET',url +results,true);
                     httpRequest.send();
                  }
     </script>
