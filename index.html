@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PHP</title>
+    </head>
+    <body>
+        <div>
+            <form action="request.php" method="post">Word:<input type="text" word="word">
+                <button type="button" onclick="makeRequest('request.php?q=definition')">Search</button>
+            </form>
+        </div>
+        <script type="text/javascript">
+            function makeRequest(url){
+                     var httpRequest = new XMLHttpRequest();
+                     httpRequest.onreadystatechange = function()
+                     {
+                         if (httpRequest.readyState == XMLHttpRequest.DONE) 
+                         {
+                             if(httpRequest.status == 200)
+                             { 
+                                alert(httpRequest.responseText);
+                             }
+                             else
+                             {
+                                alert("There is an error");
+                             }
+                         }
+                     };
+                    httpRequest.open('GET',url,true);
+                    httpRequest.send();
+                 }
+    </script>
+    </body>
+</html>
