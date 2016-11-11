@@ -4,17 +4,22 @@
         <title>PHP</title>
     </head>
     <body>
+        <div style='background-color: green;'>
+            <h1 style='color: blue'> Dictionary! </h1> 
+        </div>
         <div>
             <form action="request.php" method="get" id = "formid">
                 Word:<input type="text" word="word" id = "info">
                 <button type="button" onclick="makeRequest('request.php?q=')">Search</button>
+                <button type = "button" onclick ="makeRequestForAll('request.php?q=&all=true')"+>Get All Definitions</button>
             </form>
-             <div id = "results"></div>
+             <div id = "results"> <ol></ol></div>
         </div>
         <script type="text/javascript">
             function makeRequest(url){
                      var httpRequest = new XMLHttpRequest();
                      var results = document.getElementById("info").value;
+                     
                      httpRequest.onreadystatechange = function()
                      {
                          if (httpRequest.readyState == XMLHttpRequest.DONE) 
@@ -33,6 +38,36 @@
                     httpRequest.open('GET',url +results,true);
                     httpRequest.send();
                  }
+        function makeRequestForAll(url){
+                     var httpRequest1 = new XMLHttpRequest();
+                     
+                     httpRequest1.onreadystatechange = function()
+                     {
+                         if (httpRequest1.readyState == XMLHttpRequest.DONE) 
+                         {
+                             if(httpRequest1.status == 200)
+                             { 
+                                 var ol = document.createElement("ol");
+                                 var li = document.createElement("li");
+                                 var h3 = document.createElement("h3");
+                                 var p1 = document.createElement("p");
+                                 var p2 = document.createElement("p");
+                                 
+                                 var t = document.createTextNode("httpRequest.responseText");
+                                 
+                                 ol.appendChild(li);
+                                 document.body.appendChild(ol);                                                                                                                                                                                                                  
+                                //alert(httpRequest.responseText);
+                             }
+                             else
+                             {
+                                alert("There is an error");
+                             }
+                         }
+                     };
+                    httpRequest1.open('GET',url,true);
+                    httpRequest1.send();
+        }
     </script>
     </body>
 </html>
